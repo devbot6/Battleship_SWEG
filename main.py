@@ -4,6 +4,7 @@ import random
 guessBoard = [["x"] * 5 for i in range(5)]
 
 
+
 def printBoard():
     print(guessBoard)
 
@@ -11,7 +12,9 @@ def randomShips():
     randomRow = random.randrange(1,5)
     randomCol = random.randrange(1,5)
     
-    # guessBoard[[0][]] = 
+    location = guessBoard[randomRow][randomCol]
+    
+    return location
 
 def shipHit():
     pass
@@ -22,6 +25,9 @@ def shipMissed():
 def shipSunk():
     pass
 
-guessBoard[[0][1]] = 12
 
-printBoard()
+randomShips()
+
+print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
+
+
