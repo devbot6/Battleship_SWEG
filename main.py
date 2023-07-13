@@ -1,20 +1,34 @@
 import random
 
-
+#creates board
 guessBoard = [["x"] * 5 for i in range(5)]
 
 
-
+#prints board
 def printBoard():
     print(guessBoard)
 
+
+#returns the random location in the grid 
 def randomShips():
-    randomRow = random.randrange(1,5)
-    randomCol = random.randrange(1,5)
+    randomRow1 = random.randrange(1,5)
+    randomCol1 = random.randrange(1,5)
     
-    location = guessBoard[randomRow][randomCol]
+    location1 = guessBoard[randomRow1][randomCol1]
+
+    randomRow2 = random.randrange(1,5)
+    randomCol2 = random.randrange(1,5)
     
-    return location
+    location2 = guessBoard[randomRow2][randomCol2]
+
+    randomRow3 = random.randrange(1,5)
+    randomCol3 = random.randrange(1,5)
+    
+    location3 = guessBoard[randomRow3][randomCol3]
+    
+    print(guessBoard)
+    
+    return location1, location2, location3
 
 def shipHit():
     pass
@@ -28,6 +42,7 @@ def shipSunk():
 
 randomShips()
 
+#prints the list of lists in a grid format
 print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
 
 
