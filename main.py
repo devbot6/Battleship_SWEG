@@ -11,6 +11,8 @@ def printBoard():
 
 #returns the random location in the grid 
 def randomShips():
+    global location1, location2, location3
+    
     randomRow1 = random.randrange(1,5)
     randomCol1 = random.randrange(1,5)
     
@@ -26,7 +28,7 @@ def randomShips():
     
     location3 = guessBoard[randomRow3][randomCol3]
     
-    print(guessBoard)
+    print(location3)
     
     return location1, location2, location3
 
