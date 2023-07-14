@@ -9,6 +9,20 @@ def printBoard():
     print(guessBoard)
 
 
+player_one = ()
+name = (input("Player One, Please enter your name")) 
+
+player_two = ()
+name = (input("Player two, please enter your name"))
+
+# Players will alternate turns.
+def player_turns(total_turns):
+
+    if total_turns % 3 == 0:
+        total_turns += 1
+        return player_one
+
+
 #returns the random location in the grid 
 def randomShips():
     global location1, location2, location3
@@ -69,6 +83,7 @@ def play_game():
                 print("\nBoom! You hit! A ship has exploded! You were granted a new ammo!\n")
                 guessBoard[row][column] = "X"
                 ships_left -= 1
+                if ships_left < 1: return player_two
                 if ships_left == 0:
                     print("Congrats, you won!")
                     play_again()
