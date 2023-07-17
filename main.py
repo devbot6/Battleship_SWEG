@@ -3,8 +3,11 @@ import random
 
 gridSize = eval(input("How big do you want it to be?(5 = 5x5)"))
 
+userChoice = input("""Do you want it to be "Selected" or "Random"?""")
+
 #creates board
 guessBoard = [["0"] * gridSize for i in range(gridSize)]
+ships = []
 
 #prints board
 def printBoard():
@@ -12,33 +15,36 @@ def printBoard():
     
 
 #returns the random location in the grid 
-def randomShips():
-    global location1, location2, location3
+if userChoice == "Random":
+    for i in range(3):
+        ship = []
+        
+        randomRow1 = random.randrange(1,gridSize)
+        randomCol1 = random.randrange(1,gridSize)
+        
+        ship.append(randomRow1)
+        ship.append(randomCol1)
+        
+        ships.append(ship)
+        
+elif userChoice == "Selected":
+    for i in range(3):
+        ship = []
+        
+        userRow = eval(input("What row would you like for this ship:"))
+        userCol = eval(input("What column would you like for this ship:"))
+        
+        ship.append(userRow)
+        ship.append(userCol)
+        
+        ships.append(ship)
+        
     
-    randomRow1 = random.randrange(1,gridSize)
-    randomCol1 = random.randrange(1,gridSize)
     
-    location1 = guessBoard[randomRow1][randomCol1]
+print(ships)
+    #prints the list of lists in a grid format
+print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
 
-    randomRow2 = random.randrange(1,gridSize)
-    randomCol2 = random.randrange(1,gridSize)
-    
-    location2 = guessBoard[randomRow2][randomCol2]
-
-    randomRow3 = random.randrange(1,gridSize)
-    randomCol3 = random.randrange(1,gridSize)
-    
-    location3 = guessBoard[randomRow3][randomCol3]
-    
-    
-    
-    return randomCol1, randomCol1, randomRow2, randomCol2, randomRow3, randomCol3
-
-
-def play_again():
-    try_again = input("Wanna play again? <Y>es or <N>o? >: ").lower()
-    if try_again == "y":
-        play_game()
 
 
 def play_game():
@@ -51,7 +57,7 @@ def play_game():
                 print("You wont break my code, number only!")
                 continue
             
-            row1, col1, row2, col2, row3, col3 = randomShips()
+            choice = [row, column]
             
             
             if row not in range(1,gridSize+1) or column not in range(1, gridSize+1):
@@ -68,13 +74,12 @@ def play_game():
             if guessBoard[row][column] == "-" or guessBoard[row][column] == "X":
                 print("\nYou have already shot that spot!\n")
                 continue
-            elif (row, column) == (row1, col1) or (row, column) == (row2, col2) or (row, column) == (row3, col3):
+            elif choice in ships:
                 print("\nBoom! You hit! A ship has exploded! You were granted a new ammo!\n")
                 guessBoard[row][column] = "X"
                 ships_left -= 1
                 if ships_left == 0:
                     print("Congrats, you won!")
-                    play_again()
             else:
                 print("\nYou missed!\n")
                 guessBoard[row][column] = "-"
@@ -85,8 +90,6 @@ def play_game():
 
             print(f"Ammo left: {ammo} | Ships left: {ships_left}")
 
-#prints the list of lists in a grid format
-print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
 
 play_game()
 
