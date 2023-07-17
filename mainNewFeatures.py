@@ -40,17 +40,12 @@ elif userChoice == "Selected":
         ship.append(userCol)
         
         ships.append(ship)
-        
-    
-    
-print(ships)
-    #prints the list of lists in a grid format
-print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
-
 
 
 def play_game():
     ammo = eval(input("How many attempts do you want to give yourself: "))  
+    #prints the list of lists in a grid format
+    print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
     while ammo>0:
             try:
                 row = int(input("You must enter a row number between 1-{} >: ".format(gridSize)))
