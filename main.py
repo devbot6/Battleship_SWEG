@@ -3,7 +3,7 @@ import random
 
 gridSize = eval(input("How big do you want it to be?(5 = 5x5)"))
 
-
+userChoice = input("""Do you want it to be "Selected" or "Random"?""")
 
 #creates board
 guessBoard = [["0"] * gridSize for i in range(gridSize)]
@@ -15,17 +15,29 @@ def printBoard():
     
 
 #returns the random location in the grid 
-for i in range(3):
-    ship = []
-    
-    randomRow1 = random.randrange(1,gridSize)
-    randomCol1 = random.randrange(1,gridSize)
-    
-    ship.append(randomRow1)
-    ship.append(randomCol1)
-    
-    ships.append(ship)
+if userChoice == "Random":
+    for i in range(3):
+        ship = []
         
+        randomRow1 = random.randrange(1,gridSize)
+        randomCol1 = random.randrange(1,gridSize)
+        
+        ship.append(randomRow1)
+        ship.append(randomCol1)
+        
+        ships.append(ship)
+        
+elif userChoice == "Selected":
+    for i in range(3):
+        ship = []
+        
+        userRow = eval(input("What row would you like for this ship:"))
+        userCol = eval(input("What column would you like for this ship:"))
+        
+        ship.append(userRow)
+        ship.append(userCol)
+        
+        ships.append(ship)
         
     
     
