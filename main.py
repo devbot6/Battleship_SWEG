@@ -5,8 +5,6 @@ gridSize = eval(input("How big do you want it to be?(5 = 5x5)"))
 
 userChoice = input("""Do you want it to be "Selected" or "Random"?""")
 
-shipNum = eval(input("How many ships do you want:"))
-
 #creates board
 guessBoard = [["0"] * gridSize for i in range(gridSize)]
 ships = []
@@ -18,7 +16,7 @@ def printBoard():
 
 #returns the random location in the grid 
 if userChoice == "Random":
-    for i in range(shipNum):
+    for i in range(3):
         ship = []
         
         randomRow1 = random.randrange(1,gridSize)
@@ -30,7 +28,7 @@ if userChoice == "Random":
         ships.append(ship)
         
 elif userChoice == "Selected":
-    for i in range(shipNum):
+    for i in range(3):
         ship = []
         
         userRow = eval(input("What row would you like for this ship:"))
@@ -40,17 +38,11 @@ elif userChoice == "Selected":
         ship.append(userCol)
         
         ships.append(ship)
-        
-    
-    
-print(ships)
-    #prints the list of lists in a grid format
-print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
-
 
 
 def play_game():
-    ammo = eval(input("How many attempts do you want to give yourself: "))  
+    print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
+    ammo = 5
     while ammo>0:
             try:
                 row = int(input("You must enter a row number between 1-{} >: ".format(gridSize)))
