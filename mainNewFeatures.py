@@ -1,20 +1,24 @@
 import random
 
+
 some_bool = True
 while (some_bool):
-    print('            ')
+    print("         ")
     gridSize = input("How big do you want it to be?(5 = 5x5)")
-    print("        ")
+    print("            ")
     userChoice = input("Do you want it to be Selected or Random? (1=Selected, 2=Random)")
+    print("              ")
+    shipNum = eval(input("How many ships do you want:"))
     
     try:
         gridSize = eval(gridSize)
         userChoice = eval(userChoice)
+        shipNum = eval(shipNum)
     except:
-        print("         ")
+        print("              ")
         print("That is a not a correct input try again")
         some_bool = True
-    if str != type(gridSize) and str != type(userChoice) and (userChoice == 1 or 2):   
+    if str != type(gridSize) and str != type(userChoice) and (userChoice == 1 or 2) and str != type(shipNum):   
         some_bool = False
 
 
@@ -88,17 +92,11 @@ for i in range(1):
             if str != type(userRow) and str != type(userCol) and (userCol <= gridSize):   
                 some_bool = False
 
-        
-        userShip.append(userRow)
-        userShip.append(userCol)
-        
-        userShips.append(userShip)
-
 
 def play_game():
+    ammo = eval(input("How many attempts do you want to give yourself: "))  
+    #prints the list of lists in a grid format
     print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
-    ammo = 5
-    ships_left = 3
     while ammo>0:
             try:
                 row = int(input("You must enter a row number between 1-{} >: ".format(gridSize)))
@@ -119,18 +117,17 @@ def play_game():
             column = column - 1 # Reducing number to desired index.
             
             
+            ships_left = 3
             
             if guessBoard[row][column] == "-" or guessBoard[row][column] == "X":
                 print("\nYou have already shot that spot!\n")
                 continue
             elif choice in computerShips:
-                print("\nBoom! You hit! A ship has exploded!\n")
+                print("\nBoom! You hit! A ship has exploded! You were granted a new ammo!\n")
                 guessBoard[row][column] = "X"
                 ships_left -= 1
-                ammo -= 1
                 if ships_left == 0:
                     print("Congrats, you won!")
-                    break
             else:
                 print("\nYou missed!\n")
                 guessBoard[row][column] = "-"
