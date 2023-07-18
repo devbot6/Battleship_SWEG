@@ -70,7 +70,6 @@ elif userChoice == 1:
 
 def play_game():
     print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
-    print(ships)
     ammo = 5
     ships_left = 3
     while ammo>0:
