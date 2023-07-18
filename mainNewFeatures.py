@@ -1,11 +1,26 @@
 import random
 
 
-gridSize = eval(input("How big do you want it to be?(5 = 5x5)"))
+some_bool = True
+while (some_bool):
+    print("         ")
+    gridSize = input("How big do you want it to be?(5 = 5x5)")
+    print("            ")
+    userChoice = input("Do you want it to be Selected or Random? (1=Selected, 2=Random)")
+    print("              ")
+    shipNum = eval(input("How many ships do you want:"))
+    
+    try:
+        gridSize = eval(gridSize)
+        userChoice = eval(userChoice)
+        shipNum = eval(shipNum)
+    except:
+        print("              ")
+        print("That is a not a correct input try again")
+        some_bool = True
+    if str != type(gridSize) and str != type(userChoice) and (userChoice == 1 or 2) and str != type(shipNum):   
+        some_bool = False
 
-userChoice = input("""Do you want it to be "Selected" or "Random"?""")
-
-shipNum = eval(input("How many ships do you want:"))
 
 #creates board
 guessBoard = [["0"] * gridSize for i in range(gridSize)]
@@ -17,7 +32,7 @@ def printBoard():
     
 
 #returns the random location in the grid 
-if userChoice == "Random":
+if userChoice == 2:
     for i in range(shipNum):
         ship = []
         
@@ -29,17 +44,33 @@ if userChoice == "Random":
         
         ships.append(ship)
         
-elif userChoice == "Selected":
+elif userChoice == 1:
     for i in range(shipNum):
         ship = []
         
-        userRow = eval(input("What row would you like for this ship:"))
-        userCol = eval(input("What column would you like for this ship:"))
+        some_bool = True
+        while (some_bool):
+            print("             ")
+            userRow = input("What row would you like for this ship:")
+            print("       ")
+            userCol = input("What column would you like for this ship:")
+            
+            try:
+                userRow = eval(userRow)
+                userCol = eval(userCol)
+            except:
+                print("             ")
+                print("That is a not a correct input try again")
+                some_bool = True
+            if str != type(userRow) and str != type(userCol) and (userCol <= gridSize):   
+                some_bool = False
+
         
         ship.append(userRow)
         ship.append(userCol)
         
         ships.append(ship)
+
 
 
 def play_game():

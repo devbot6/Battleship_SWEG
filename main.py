@@ -1,9 +1,22 @@
 import random
 
+some_bool = True
+while (some_bool):
+    print('            ')
+    gridSize = input("How big do you want it to be?(5 = 5x5)")
+    print("        ")
+    userChoice = input("Do you want it to be Selected or Random? (1=Selected, 2=Random)")
+    
+    try:
+        gridSize = eval(gridSize)
+        userChoice = eval(userChoice)
+    except:
+        print("         ")
+        print("That is a not a correct input try again")
+        some_bool = True
+    if str != type(gridSize) and str != type(userChoice) and (userChoice == 1 or 2):   
+        some_bool = False
 
-gridSize = eval(input("How big do you want it to be?(5 = 5x5)"))
-
-userChoice = input("""Do you want it to be "Selected" or "Random"?""")
 
 #creates board
 guessBoard = [["0"] * gridSize for i in range(gridSize)]
@@ -15,7 +28,7 @@ def printBoard():
     
 
 #returns the random location in the grid 
-if userChoice == "Random":
+if userChoice == 2:
     for i in range(3):
         ship = []
         
@@ -27,12 +40,27 @@ if userChoice == "Random":
         
         ships.append(ship)
         
-elif userChoice == "Selected":
+elif userChoice == 1:
     for i in range(3):
         ship = []
         
-        userRow = eval(input("What row would you like for this ship:"))
-        userCol = eval(input("What column would you like for this ship:"))
+        some_bool = True
+        while (some_bool):
+            print("             ")
+            userRow = input("What row would you like for ship {} :".format(i+1))
+            print("       ")
+            userCol = input("What column would you like for ship {} :".format(i+1))
+            
+            try:
+                userRow = eval(userRow)
+                userCol = eval(userCol)
+            except:
+                print("          ")
+                print("That is a not a correct input try again")
+                some_bool = True
+            if str != type(userRow) and str != type(userCol) and (userCol <= gridSize):   
+                some_bool = False
+
         
         ship.append(userRow)
         ship.append(userCol)
@@ -42,7 +70,9 @@ elif userChoice == "Selected":
 
 def play_game():
     print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
+    print(ships)
     ammo = 5
+    ships_left = 3
     while ammo>0:
             try:
                 row = int(input("You must enter a row number between 1-{} >: ".format(gridSize)))
@@ -63,17 +93,18 @@ def play_game():
             column = column - 1 # Reducing number to desired index.
             
             
-            ships_left = 3
             
             if guessBoard[row][column] == "-" or guessBoard[row][column] == "X":
                 print("\nYou have already shot that spot!\n")
                 continue
             elif choice in ships:
-                print("\nBoom! You hit! A ship has exploded! You were granted a new ammo!\n")
+                print("\nBoom! You hit! A ship has exploded!\n")
                 guessBoard[row][column] = "X"
                 ships_left -= 1
+                ammo -= 1
                 if ships_left == 0:
                     print("Congrats, you won!")
+                    break
             else:
                 print("\nYou missed!\n")
                 guessBoard[row][column] = "-"
