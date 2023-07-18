@@ -91,6 +91,12 @@ for i in range(1):
                 some_bool = True
             if str != type(userRow) and str != type(userCol) and (userCol <= gridSize):   
                 some_bool = False
+                
+        userShip.append(userRow)
+        userShip.append(userCol)
+        
+        userShips.append(userShip)
+
 
 
 def play_game():
