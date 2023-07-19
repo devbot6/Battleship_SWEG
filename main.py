@@ -5,7 +5,7 @@ some_bool = True
 while (some_bool):
     print('            ')
     #user input to set gridSize
-    gridSize = input("How big do you want it to be?(5 = 5x5)(Must be greater than 1)")
+    gridSize = input("How big do you want it to be?(5 = 5x5)(Must be greater than 2)")
     print("        ")
     #user input to set the mode whether the ships are selected or random
     userChoice = input("Do you want it to be Selected or Random? (1=Selected, 2=Random)")
@@ -19,12 +19,14 @@ while (some_bool):
         print("         ")
         print("That is a not a correct input try again")
         some_bool = True
-    if str != type(gridSize) and str != type(userChoice) and (userChoice == 1 or 2) and (gridSize>1):   
+    if str != type(gridSize) and str != type(userChoice) and (userChoice == 1 or 2) and (gridSize>2):   
         some_bool = False
 
 
 #creates board
 guessBoard = [["0"] * gridSize for i in range(gridSize)]
+compGuessBoard = [["0"] * gridSize for i in range(gridSize)]
+
 #board used to store the computer's ships
 computerShips = []
 #board used to store the user's ships
@@ -117,16 +119,27 @@ for i in range(1):
 
 #function used for the computers side of playing
 def computerPlay():
+    print("--------------------------------------Computer Turn-----------------------------------------------------")
     #prints board
+    print("YOUR BOARD")
+    print('\n'.join(' '.join(map(str,sl)) for sl in compGuessBoard))
+    #pritns opposing board
+    print("ENEMY BOARD")
     print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
+
     #amount of turns represented as ammo and ship lives
     ammo = 5
-    ships_left = 3
+    ships_left = 1
     while ammo>0:
             print("COMPUTER'S TURN")
             
             row = random.randint(1, gridSize)
             column = random.randint(1, gridSize)
+            
+            print("The computer guessed row: {}".format(row))
+            print("The computer guessed column: {}".format(column))
+            print("-----------------------------------------------------------------------")
+
 
             choice = [row, column]
 
@@ -142,27 +155,33 @@ def computerPlay():
             
             
             #checks to see if you shot a spot already  
-            if guessBoard[row][column] == "-" or guessBoard[row][column] == "X":
+            if compGuessBoard[row][column] == "-" or compGuessBoard[row][column] == "X":
                 print("\nYou have already shot that spot!\n")
                 continue
             #compares the list of computer ships and checks to see if choice list matches any of them
             elif choice in userShips:
                 print("\nBoom! You hit! A ship has exploded!\n")
-                guessBoard[row][column] = "X"
+                compGuessBoard[row][column] = "X"
                 #if its a hit it loses ammo and a ship dies
                 ships_left -= 1
                 ammo -= 1
                 # if no more ships you win
                 if ships_left == 0:
                     print("Congrats, you won!")
-                    play_game()
                     break
             else:
                 # prints a - if you miss
                 print("\nYou missed!\n")
-                guessBoard[row][column] = "-"
+                compGuessBoard[row][column] = "-"
                 ammo -= 1
+                
             # prints board
+            print("YOUR BOARD")
+            for i in compGuessBoard:
+                print(*i)
+                
+            # prints enemy board
+            print("ENEMY BOARD")
             for i in guessBoard:
                 print(*i)
             # prints your current ammo and ships lives every turn
@@ -171,18 +190,24 @@ def computerPlay():
 
 #overarching funtion that runs the core process of the game
 def play_game():
+    print("-----------------------------------USER TURN-----------------------------------------------")
     #prints board
+    print("YOUR BOARD")
     print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
+    print("ENEMY BOARD")
+    print('\n'.join(' '.join(map(str,sl)) for sl in compGuessBoard))
+
     #amount of turns represented as ammo and ship lives
     ammo = 5
-    ships_left = 3
+    ships_left = 1
     while ammo>0:
-            print("------------------------------------------")
+
             print("USER'S TURN")
             try:
                 #attempts to run this code
                 row = int(input("You must enter a row number between 1-{} >: ".format(gridSize)))
                 column = int(input(" You must enter a column number between 1-{} >: ".format(gridSize)))
+                print("---------------------------------------------------------------------------------")
             except ValueError:
                 #runs this code if it errors out with a valueError
                 print("You wont break my code, number only!")
@@ -224,15 +249,23 @@ def play_game():
                 guessBoard[row][column] = "-"
                 ammo -= 1
             # prints board
+            print("YOUR BOARD")
             for i in guessBoard:
+                print(*i)
+            
+            # prints board
+            print("ENEMY BOARD")
+            for i in compGuessBoard:
                 print(*i)
             # prints your current ammo and ships lives every turn
             print(f"Ammo left: {ammo} | Ships left: {ships_left}")
+            
+            if ammo == 0:
+                computerPlay()
 
 # runs core fucntion
 play_game()
 
-computerPlay()
 
 
 
