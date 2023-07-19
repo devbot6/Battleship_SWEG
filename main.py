@@ -140,6 +140,7 @@ def play_game():
                 ammo-=1
                 continue
 
+
             row = row - 1 # Reducing number to desired index.
             column = column - 1 # Reducing number to desired index.
             
