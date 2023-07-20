@@ -1,12 +1,5 @@
 import random
 
-class ships:
-    def __init__(self, name, row, col):
-        self.name = name
-        self.row = row
-        self.col = col
-
-
 #input verificiation 
 some_bool = True
 while (some_bool):
@@ -36,26 +29,18 @@ while (some_bool):
 #creates board
 guessBoard = [["0"] * gridSize for i in range(gridSize)]
 compGuessBoard = [["0"] * gridSize for i in range(gridSize)]
-#board used to store the computer's ships
-computerShips = []
-#board used to store the user's ships
-userShips = []
+
 
 #returns the random location in the grid 
 if userChoice == 2:
-    for i in range(2):
-        name = input("Name for ship {}: ".format(i))
+    for i in range(1):
         #makes a list for a specific ship
         compShip = []
         #generates 2 random numbers
         randomRow1 = random.randrange(1,gridSize)
         randomCol1 = random.randrange(1,gridSize)
-        
-        compShip = ships(name, randomRow1, randomCol1)
-        
         #append the single ship list to the list of ships
-    computerShips.append(compShip)
-        
+        guessBoard[randomRow1][randomCol1] = "s"
         
 elif userChoice == 1:
     for i in range(1):
@@ -86,13 +71,9 @@ elif userChoice == 1:
                 print("   ")
                 print("That not a valid input try again!")
             
-        name = input("Name for ship {}: ".format(i))
-        compShip = (name, userRow, userCol)
-        computerShips.append(compShip)
-        
+        guessBoard[userRow][userCol] = "s"
                 
-                   
-
+     
         
 
 for i in range(1):
@@ -123,17 +104,23 @@ for i in range(1):
                 print("   ")
                 print("That not a valid input try again!")
             
-        name = input("Name for ship {}: ".format(i))
-        userShip = (name, userRow, userCol)
-        #appends the user ship to the list of userSHips
-        userShips.append(userShip)
+
+        compGuessBoard[userRow][userCol] = "s"
+        
+def printBoardUser():
+    for i in guessBoard:
+        print(i)
+def printBoardCpu():
+    for i in compGuessBoard:
+        print(i)
+
 
 #function used for the computers side of playing
 def computerPlay():
     print("--------------------------------------Computer Turn-----------------------------------------------------")
     #prints board
     print("ENEMY BOARD")
-    print('\n'.join(' '.join(map(str,sl)) for sl in compGuessBoard))
+    printBoardCpu()
 
     #amount of turns represented as ammo and ship lives
     ammo = 5
@@ -166,8 +153,8 @@ def computerPlay():
                 print("\nYou have already shot that spot!\n")
                 continue
             #compares the list of computer ships and checks to see if choice list matches any of them
-            elif choice in userShips:
-                print("\nBoom! You hit! A ship has exploded!\n")
+            elif choice in compGuessBoard:
+                print("\nBoom! You hit! \n")
                 compGuessBoard[row][column] = "X"
                 #if its a hit it loses ammo and a ship dies
                 ships_left -= 1
@@ -184,9 +171,7 @@ def computerPlay():
                 
             # prints board
             print("ENEMY BOARD")
-            for i in compGuessBoard:
-                print(*i)
-                
+            printBoardCpu()
         
             print("  ")
             # prints your current ammo and ships lives every turn
@@ -199,7 +184,7 @@ def play_game():
     print("-----------------------------------USER TURN-----------------------------------------------")
     #prints board
     print("ENEMY BOARD")
-    print('\n'.join(' '.join(map(str,sl)) for sl in guessBoard))
+    printBoardUser()
 
     #amount of turns represented as ammo and ship lives
     ammo = 5
@@ -237,19 +222,17 @@ def play_game():
                 print("\nYou have already shot that spot!\n")
                 continue
             #compares the list of computer ships and checks to see if choice list matches any of them
-            elif
-                for ships in computerShips:
-                    if compShip.row == choice[0] and compShip.col == choice[1]:
-                        print("\nBoom! You hit!\n")
-                        guessBoard[row][column] = "X"
-                        #if its a hit it loses ammo and a ship dies
-                        ships_left -= 1
-                        ammo -= 1
-                        # if no more ships you win
-                        if ships_left == 0:
-                            print("Congrats, you won! (USER WON)")
-                            computerPlay()
-                            break
+            elif choice == guessBoard[choice]:
+                print("\nBoom! You hit! A ship has exploded!\n")
+                guessBoard[row][column] = "X"
+                #if its a hit it loses ammo and a ship dies
+                ships_left -= 1
+                ammo -= 1
+                # if no more ships you win
+                if ships_left == 0:
+                    print("Congrats, you won! (USER WON)")
+                    computerPlay()
+                    break
                
             else:
                 # prints a - if you miss
@@ -258,8 +241,7 @@ def play_game():
                 ammo -= 1
             # prints board
             print("ENEMY BOARD")
-            for i in guessBoard:
-                print(*i)
+            printBoardUser()
             
             print("  ")
             # prints your current ammo and ships lives every turn
