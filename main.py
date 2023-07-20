@@ -1,5 +1,12 @@
 import random
 
+class ships:
+    def __init__(self, name, row, col):
+        self.name = name
+        self.row = row
+        self.col = col
+
+
 #input verificiation 
 some_bool = True
 while (some_bool):
@@ -36,17 +43,19 @@ userShips = []
 
 #returns the random location in the grid 
 if userChoice == 2:
-    for i in range(1):
+    for i in range(2):
+        name = input("Name for ship {}: ".format(i))
         #makes a list for a specific ship
         compShip = []
         #generates 2 random numbers
         randomRow1 = random.randrange(1,gridSize)
         randomCol1 = random.randrange(1,gridSize)
-        #appends the random numbers to the specific ship list
-        compShip.append(randomRow1)
-        compShip.append(randomCol1)
+        
+        compShip = ships(name, randomRow1, randomCol1)
+        
         #append the single ship list to the list of ships
-        computerShips.append(compShip)
+    computerShips.append(compShip)
+        
         
 elif userChoice == 1:
     for i in range(1):
@@ -77,9 +86,10 @@ elif userChoice == 1:
                 print("   ")
                 print("That not a valid input try again!")
             
-        compShip.append(userRow)
-        compShip.append(userCol)
+        name = input("Name for ship {}: ".format(i))
+        compShip = (name, userRow, userCol)
         computerShips.append(compShip)
+        
                 
                    
 
@@ -113,10 +123,8 @@ for i in range(1):
                 print("   ")
                 print("That not a valid input try again!")
             
-
-        #appends the user ships to the list of userships
-        userShip.append(userRow)
-        userShip.append(userCol)
+        name = input("Name for ship {}: ".format(i))
+        userShip = (name, userRow, userCol)
         #appends the user ship to the list of userSHips
         userShips.append(userShip)
 
@@ -229,17 +237,19 @@ def play_game():
                 print("\nYou have already shot that spot!\n")
                 continue
             #compares the list of computer ships and checks to see if choice list matches any of them
-            elif choice in computerShips:
-                print("\nBoom! You hit! A ship has exploded!\n")
-                guessBoard[row][column] = "X"
-                #if its a hit it loses ammo and a ship dies
-                ships_left -= 1
-                ammo -= 1
-                # if no more ships you win
-                if ships_left == 0:
-                    print("Congrats, you won! (USER WON)")
-                    computerPlay()
-                    break
+            elif
+                for ships in computerShips:
+                    if compShip.row == choice[0] and compShip.col == choice[1]:
+                        print("\nBoom! You hit!\n")
+                        guessBoard[row][column] = "X"
+                        #if its a hit it loses ammo and a ship dies
+                        ships_left -= 1
+                        ammo -= 1
+                        # if no more ships you win
+                        if ships_left == 0:
+                            print("Congrats, you won! (USER WON)")
+                            computerPlay()
+                            break
                
             else:
                 # prints a - if you miss
