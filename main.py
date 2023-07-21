@@ -37,10 +37,11 @@ def userChoices():
             #generates 2 random numbers
             randomRow1 = random.randrange(1,gridSize)
             randomCol1 = random.randrange(1,gridSize)
+            randListName = ["bob", "noodle", "fortnite", ]
+            randName = random.randrange(randListName)
             #append the single ship list to the list of ships
-            guessBoard[randomRow1][randomCol1] = "s"
-            print(randomRow1)
-            print(randomCol1)
+            guessBoard[randomRow1][randomCol1] = "s", randName
+
             
     elif userChoice == 1:
         for i in range(1):
@@ -53,11 +54,13 @@ def userChoices():
                 print("       ")
                 #used to set the computer's ship column
                 userCol = input("What column would you like for the computer's ship {} :".format(i+1))
+                compName = input("What name would you like for the computer's ship [] : ".format(i+1))
                 
                 try:
                     #evaluates the value of userRow and userCol
                     userRow = eval(userRow)
                     userCol = eval(userCol)
+                    compName = eval(compName)
                 except:
                     #runs this if it errors
                     print("          ")
@@ -69,7 +72,7 @@ def userChoices():
                     print("   ")
                     print("That not a valid input try again!")
                 
-            guessBoard[userRow][userCol] = "s"
+            guessBoard[userRow][userCol] = "s", compName
             
                     
         
@@ -86,11 +89,13 @@ def userChoices():
                 print("       ")
                 #used to set the user's ship column
                 userCol = input("What column would you like for your ship {} :".format(i+1))
+                userName = input("What name would you like for your ship {} :".format(i+1))
                 
                 try:
                     #evaluates the value of userRow and userCol
                     userRow = eval(userRow)
                     userCol = eval(userCol)
+                    userName = eval(userName)
                 except:
                     #if the above code erros it runs this
                     print("   ")
@@ -103,7 +108,7 @@ def userChoices():
                     print("That not a valid input try again!")
                 
 
-            compGuessBoard[userRow][userCol] = "s"
+            compGuessBoard[userRow][userCol] = "s", userName
             
 
         
@@ -166,7 +171,7 @@ def computerPlay():
                 continue
             #compares the list of computer ships and checks to see if choice list matches any of them
             elif compGuessBoard[row][column] == "s":
-                print("\nBoom! You hit a ship! \n")
+                print("\nBoom! You hit {} ship \n".format())
                 compGuessBoard[row][column] = "X"
                 #if its a hit it loses ammo and a ship dies
                 ships_left -= 1
@@ -175,16 +180,7 @@ def computerPlay():
                 if ships_left == 0:
                     print("Congrats, you won! (COMPUTER WON)")
                     break
-            elif compGuessBoard[row][column] == "d":
-                print("\nBoom! You hit a destroyer! \n")
-                compGuessBoard[row][column] = "X"
-                #if its a hit it loses ammo and a ship dies
-                ships_left -= 1
-                ammo -= 1
-                # if no more ships you win
-                if ships_left == 0:
-                    print("Congrats, you won! (COMPUTER WON)")
-                    break
+
             else:
                 # prints a - if you miss
                 print("\nYou missed!\n")
@@ -285,7 +281,3 @@ def play_game():
 # runs core fucntion
 userChoices()
 play_game()
-
-
-
-
