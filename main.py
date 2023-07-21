@@ -107,13 +107,25 @@ for i in range(1):
 
         compGuessBoard[userRow][userCol] = "s"
         
+# function used to print the user's board
 def printBoardUser():
-    for i in guessBoard:
-        print(i)
-def printBoardCpu():
-    for i in compGuessBoard:
-        print(i)
+    for row in guessBoard:
+        for cell in row:
+            if cell == 0 or cell == '-':
+                print("0", end=" ")
+            else:
+                print(cell, end=" ")
+        print()
 
+# function used to print the computer's board
+def printBoardCpu():
+    for row in compGuessBoard:
+        for cell in row:
+            if cell == 0 or cell == '-':
+                print("0", end=" ")
+            else:
+                print(cell, end=" ")
+        print()
 
 #function used for the computers side of playing
 def computerPlay():
@@ -136,7 +148,6 @@ def computerPlay():
             print("The computer guessed row: {} col: {}".format(row, column))
 
 
-            choice = [row, column]
 
             #ensures the user cannot type outisde of the bounds of the grid
             if row not in range(1,gridSize+1) or column not in range(1, gridSize+1):
@@ -146,6 +157,7 @@ def computerPlay():
 
 
             row = row - 1 # Reducing number to desired index.
+            column = column - 1
             
             
             #checks to see if you shot a spot already  
@@ -153,8 +165,18 @@ def computerPlay():
                 print("\nYou have already shot that spot!\n")
                 continue
             #compares the list of computer ships and checks to see if choice list matches any of them
-            elif choice in compGuessBoard:
-                print("\nBoom! You hit! \n")
+            elif compGuessBoard[row][column] == "s":
+                print("\nBoom! You hit a ship! \n")
+                compGuessBoard[row][column] = "X"
+                #if its a hit it loses ammo and a ship dies
+                ships_left -= 1
+                ammo -= 1
+                # if no more ships you win
+                if ships_left == 0:
+                    print("Congrats, you won! (COMPUTER WON)")
+                    break
+            elif compGuessBoard[row][column] == "d":
+                print("\nBoom! You hit a destroyer! \n")
                 compGuessBoard[row][column] = "X"
                 #if its a hit it loses ammo and a ship dies
                 ships_left -= 1
@@ -202,7 +224,7 @@ def play_game():
                 print("You wont break my code, number only!")
                 continue
             #stores the input into a list
-            choice = [row, column]
+            
             
             print("You guessed row: {} col: {}".format(row, column))
             
@@ -222,7 +244,7 @@ def play_game():
                 print("\nYou have already shot that spot!\n")
                 continue
             #compares the list of computer ships and checks to see if choice list matches any of them
-            elif choice == guessBoard[choice]:
+            elif guessBoard[row][column] == "s":
                 print("\nBoom! You hit! A ship has exploded!\n")
                 guessBoard[row][column] = "X"
                 #if its a hit it loses ammo and a ship dies
