@@ -37,8 +37,7 @@ def userChoices():
             #generates 2 random numbers
             randomRow1 = random.randrange(1,gridSize)
             randomCol1 = random.randrange(1,gridSize)
-            randListName = ["bob", "noodle", "fortnite", ]
-            randName = random.randrange(randListName)
+            randName = "bill"
             #append the single ship list to the list of ships
             guessBoard[randomRow1][randomCol1] = "s", randName
 
@@ -114,23 +113,13 @@ def userChoices():
         
 # function used to print the user's board
 def printBoardUser():
-    for row in guessBoard:
-        for cell in row:
-            if cell == 0 or cell == '-':
-                print("0", end=" ")
-            else:
-                print(cell, end=" ")
-        print()
+    for i in guessBoard:
+        print(i)
 
 # function used to print the computer's board
 def printBoardCpu():
-    for row in compGuessBoard:
-        for cell in row:
-            if cell == 0 or cell == '-':
-                print("0", end=" ")
-            else:
-                print(cell, end=" ")
-        print()
+    for i in compGuessBoard:
+        print(i)
 
 #function used for the computers side of playing
 def computerPlay():
@@ -171,7 +160,7 @@ def computerPlay():
                 continue
             #compares the list of computer ships and checks to see if choice list matches any of them
             elif compGuessBoard[row][column] == "s":
-                print("\nBoom! You hit {} ship \n".format())
+                print("\nBoom! You hit {} ship \n".format(compGuessBoard[row].index(1)))
                 compGuessBoard[row][column] = "X"
                 #if its a hit it loses ammo and a ship dies
                 ships_left -= 1
