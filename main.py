@@ -26,86 +26,86 @@ while (some_bool):
         print("That not a valid input try again!")
 
 
-#creates board
-guessBoard = [["0"] * gridSize for i in range(gridSize)]
-compGuessBoard = [["0"] * gridSize for i in range(gridSize)]
+    #creates board
+    guessBoard = [["0"] * gridSize for i in range(gridSize)]
+    compGuessBoard = [["0"] * gridSize for i in range(gridSize)]
 
-
-#returns the random location in the grid 
-if userChoice == 2:
-    for i in range(1):
-        #makes a list for a specific ship
-        compShip = []
-        #generates 2 random numbers
-        randomRow1 = random.randrange(1,gridSize)
-        randomCol1 = random.randrange(1,gridSize)
-        #append the single ship list to the list of ships
-        guessBoard[randomRow1][randomCol1] = "s"
-        
-elif userChoice == 1:
-    for i in range(1):
-        #makes a list for a specific ship
-        compShip = []
-        #while loop for input verification
-        some_bool = True
-        while (some_bool):
-            print("             ")
-            #used to set the computer's ship row
-            userRow = input("What row would you like for the computer's's ship {} :".format(i+1))
-            print("       ")
-            #used to set the computer's ship column
-            userCol = input("What column would you like for the computer's ship {} :".format(i+1))
+def userChoices():
+    #returns the random location in the grid 
+    if userChoice == 2:
+        for i in range(1):
+            #generates 2 random numbers
+            randomRow1 = random.randrange(1,gridSize)
+            randomCol1 = random.randrange(1,gridSize)
+            #append the single ship list to the list of ships
+            guessBoard[randomRow1][randomCol1] = "s"
+            print(randomRow1)
+            print(randomCol1)
             
-            try:
-                #evaluates the value of userRow and userCol
-                userRow = eval(userRow)
-                userCol = eval(userCol)
-            except:
-                #runs this if it errors
-                print("          ")
-                print("That not a valid input try again!")
-                some_bool = True
-            if str != type(userRow) and str != type(userCol) and (userCol <= gridSize) and (userRow <= gridSize):   
-                some_bool = False
-            else:
-                print("   ")
-                print("That not a valid input try again!")
-            
-        guessBoard[userRow][userCol] = "s"
+    elif userChoice == 1:
+        for i in range(1):
+            #while loop for input verification
+            some_bool = True
+            while (some_bool):
+                print("             ")
+                #used to set the computer's ship row
+                userRow = input("What row would you like for the computer's's ship {} :".format(i+1))
+                print("       ")
+                #used to set the computer's ship column
+                userCol = input("What column would you like for the computer's ship {} :".format(i+1))
                 
-     
+                try:
+                    #evaluates the value of userRow and userCol
+                    userRow = eval(userRow)
+                    userCol = eval(userCol)
+                except:
+                    #runs this if it errors
+                    print("          ")
+                    print("That not a valid input try again!")
+                    some_bool = True
+                if str != type(userRow) and str != type(userCol) and (userCol <= gridSize) and (userRow <= gridSize):   
+                    some_bool = False
+                else:
+                    print("   ")
+                    print("That not a valid input try again!")
+                
+            guessBoard[userRow][userCol] = "s"
+            
+                    
         
-
-for i in range(1):
-        #single ship list
-        userShip = []
-        #while loop for input verification
-        some_bool = True
-        while (some_bool):
-            print("             ")
-            #used to set the user's ship row
-            userRow = input("What row would you like for your ship {} :".format(i+1))
-            print("       ")
-            #used to set the user's ship column
-            userCol = input("What column would you like for your ship {} :".format(i+1))
-            
-            try:
-                #evaluates the value of userRow and userCol
-                userRow = eval(userRow)
-                userCol = eval(userCol)
-            except:
-                #if the above code erros it runs this
-                print("   ")
-                print("That not a valid input try again!")
-                some_bool = True
-            if str != type(userRow) and str != type(userCol) and (userCol <= gridSize) and (userRow <= gridSize):   
-                some_bool = False
-            else:
-                print("   ")
-                print("That not a valid input try again!")
             
 
-        compGuessBoard[userRow][userCol] = "s"
+    for i in range(1):
+
+            #while loop for input verification
+            some_bool = True
+            while (some_bool):
+                print("             ")
+                #used to set the user's ship row
+                userRow = input("What row would you like for your ship {} :".format(i+1))
+                print("       ")
+                #used to set the user's ship column
+                userCol = input("What column would you like for your ship {} :".format(i+1))
+                
+                try:
+                    #evaluates the value of userRow and userCol
+                    userRow = eval(userRow)
+                    userCol = eval(userCol)
+                except:
+                    #if the above code erros it runs this
+                    print("   ")
+                    print("That not a valid input try again!")
+                    some_bool = True
+                if str != type(userRow) and str != type(userCol) and (userCol <= gridSize) and (userRow <= gridSize):   
+                    some_bool = False
+                else:
+                    print("   ")
+                    print("That not a valid input try again!")
+                
+
+            compGuessBoard[userRow][userCol] = "s"
+            
+
         
 # function used to print the user's board
 def printBoardUser():
@@ -245,15 +245,24 @@ def play_game():
                 continue
             #compares the list of computer ships and checks to see if choice list matches any of them
             elif guessBoard[row][column] == "s":
-                print("\nBoom! You hit! A ship has exploded!\n")
+                print("\nBoom! You hit a ship! \n")
                 guessBoard[row][column] = "X"
                 #if its a hit it loses ammo and a ship dies
                 ships_left -= 1
                 ammo -= 1
                 # if no more ships you win
                 if ships_left == 0:
-                    print("Congrats, you won! (USER WON)")
-                    computerPlay()
+                    print("Congrats, you won! (COMPUTER WON)")
+                    break
+            elif guessBoard[row][column] == "d":
+                print("\nBoom! You hit a destroyer! \n")
+                guessBoard[row][column] = "X"
+                #if its a hit it loses ammo and a ship dies
+                ships_left -= 1
+                ammo -= 1
+                # if no more ships you win
+                if ships_left == 0:
+                    print("Congrats, you won! (COMPUTER WON)")
                     break
                
             else:
@@ -274,6 +283,7 @@ def play_game():
                 computerPlay()
 
 # runs core fucntion
+userChoices()
 play_game()
 
 
