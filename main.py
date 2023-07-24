@@ -34,13 +34,16 @@ def userChoices():
     #returns the random location in the grid 
     if userChoice == 2:
         for i in range(1):
+            global compName
             #generates 2 random numbers
             randomRow1 = random.randrange(1,gridSize)
             randomCol1 = random.randrange(1,gridSize)
-            #append the single ship list to the list of ships
-            guessBoard[randomRow1][randomCol1] = "s"
+            compName = input("What is the name of the computer ship {}?: ".format(i+1))
             print(randomRow1)
             print(randomCol1)
+            #append the single ship list to the list of ships
+            guessBoard[randomRow1][randomCol1] = "s"
+            
             
     elif userChoice == 1:
         for i in range(1):
@@ -48,11 +51,13 @@ def userChoices():
             some_bool = True
             while (some_bool):
                 print("             ")
+                
                 #used to set the computer's ship row
                 userRow = input("What row would you like for the computer's's ship {} :".format(i+1))
                 print("       ")
                 #used to set the computer's ship column
                 userCol = input("What column would you like for the computer's ship {} :".format(i+1))
+                compName = input("What is the name of the computer ship {}?: ".format(i+1))
                 
                 try:
                     #evaluates the value of userRow and userCol
@@ -81,22 +86,25 @@ def userChoices():
             some_bool = True
             while (some_bool):
                 print("             ")
+                global userName
                 #used to set the user's ship row
                 userRow = input("What row would you like for your ship {} :".format(i+1))
                 print("       ")
                 #used to set the user's ship column
                 userCol = input("What column would you like for your ship {} :".format(i+1))
+                userName = input("What name would you like for your ship {}?: ".format(i+1))
                 
                 try:
                     #evaluates the value of userRow and userCol
                     userRow = eval(userRow)
                     userCol = eval(userCol)
+                    userName = eval(userName)
                 except:
                     #if the above code erros it runs this
                     print("   ")
                     print("That not a valid input try again!")
                     some_bool = True
-                if str != type(userRow) and str != type(userCol) and (userCol <= gridSize) and (userRow <= gridSize):   
+                if str != type(userRow) and str != type(userCol)and str == type(userName) and (userCol <= gridSize) and (userRow <= gridSize):   
                     some_bool = False
                 else:
                     print("   ")
@@ -111,7 +119,7 @@ def userChoices():
 def printBoardUser():
     for row in guessBoard:
         for cell in row:
-            if cell == 0 or cell == '-':
+            if cell == 0 or cell == '-' :
                 print("0", end=" ")
             else:
                 print(cell, end=" ")
@@ -121,7 +129,7 @@ def printBoardUser():
 def printBoardCpu():
     for row in compGuessBoard:
         for cell in row:
-            if cell == 0 or cell == '-':
+            if cell == 0 or cell == '-' :
                 print("0", end=" ")
             else:
                 print(cell, end=" ")
@@ -166,17 +174,7 @@ def computerPlay():
                 continue
             #compares the list of computer ships and checks to see if choice list matches any of them
             elif compGuessBoard[row][column] == "s":
-                print("\nBoom! You hit a ship! \n")
-                compGuessBoard[row][column] = "X"
-                #if its a hit it loses ammo and a ship dies
-                ships_left -= 1
-                ammo -= 1
-                # if no more ships you win
-                if ships_left == 0:
-                    print("Congrats, you won! (COMPUTER WON)")
-                    break
-            elif compGuessBoard[row][column] == "d":
-                print("\nBoom! You hit a destroyer! \n")
+                print("\nBoom! You hit the {} ship! \n".format(userName))
                 compGuessBoard[row][column] = "X"
                 #if its a hit it loses ammo and a ship dies
                 ships_left -= 1
@@ -245,24 +243,14 @@ def play_game():
                 continue
             #compares the list of computer ships and checks to see if choice list matches any of them
             elif guessBoard[row][column] == "s":
-                print("\nBoom! You hit a ship! \n")
+                print("\nBoom! You hit a the {} ship! \n".format(compName))
                 guessBoard[row][column] = "X"
                 #if its a hit it loses ammo and a ship dies
                 ships_left -= 1
                 ammo -= 1
                 # if no more ships you win
                 if ships_left == 0:
-                    print("Congrats, you won! (COMPUTER WON)")
-                    break
-            elif guessBoard[row][column] == "d":
-                print("\nBoom! You hit a destroyer! \n")
-                guessBoard[row][column] = "X"
-                #if its a hit it loses ammo and a ship dies
-                ships_left -= 1
-                ammo -= 1
-                # if no more ships you win
-                if ships_left == 0:
-                    print("Congrats, you won! (COMPUTER WON)")
+                    print("Congrats, you won! (USER WON)")
                     break
                
             else:
