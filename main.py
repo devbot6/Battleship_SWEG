@@ -63,6 +63,7 @@ def userChoices():
                     #evaluates the value of userRow and userCol
                     userRow = eval(userRow)
                     userCol = eval(userCol)
+                    compName = eval(compName)
                 except:
                     #runs this if it errors
                     print("          ")
@@ -74,7 +75,7 @@ def userChoices():
                     print("   ")
                     print("That not a valid input try again!")
                 
-            guessBoard[userRow][userCol] = "s"
+            guessBoard[userRow][userCol] = "s", compName
             
                     
         
@@ -111,7 +112,7 @@ def userChoices():
                     print("That not a valid input try again!")
                 
 
-            compGuessBoard[userRow][userCol] = "s"
+            compGuessBoard[userRow][userCol] = "s", userName
             
 
         
@@ -183,6 +184,7 @@ def computerPlay():
                 if ships_left == 0:
                     print("Congrats, you won! (COMPUTER WON)")
                     break
+
             else:
                 # prints a - if you miss
                 print("\nYou missed!\n")
@@ -273,7 +275,3 @@ def play_game():
 # runs core fucntion
 userChoices()
 play_game()
-
-
-
-
