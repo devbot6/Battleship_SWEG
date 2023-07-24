@@ -115,12 +115,30 @@ def userChoices():
             compGuessBoard[userRow][userCol] = "s", userName
             
 
+def get_user_ship_placement(ship_length):
+    while True:
+        try:
+            user_input = input(f"Enter the starting position (e.g., A1) for your {ship_length}-length ship: ").upper()
+            if len(user_input) != 2 or not user_input[0].isalpha() or not user_input[1].isdigit():
+                raise ValueError()
+            row = ord(user_input[0]) - ord('A')
+            col = int(user_input[1]) - 1
+            if is_valid_placement(guessBoard, row, col, ship_length, 'horizontal'):
+                return row, col, 'horizontal'
+            elif is_valid_placement(guessBoard, row, col, ship_length, 'vertical'):
+                return row, col, 'vertical'
+            else:
+                print("Invalid placement. Try again.")
+        except ValueError:
+            print("Invalid input. Please enter a valid starting position (e.g., A1).")
+
+
         
 # function used to print the user's board
 def printBoardUser():
     for row in guessBoard:
         for cell in row:
-            if cell == 0 or cell == '-' :
+            if cell == 0 or cell == '-' or cell == "s":
                 print("0", end=" ")
             else:
                 print(cell, end=" ")
@@ -130,7 +148,7 @@ def printBoardUser():
 def printBoardCpu():
     for row in compGuessBoard:
         for cell in row:
-            if cell == 0 or cell == '-' :
+            if cell == 0 or cell == '-' or cell == "s":
                 print("0", end=" ")
             else:
                 print(cell, end=" ")
