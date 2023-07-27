@@ -4,13 +4,12 @@ import random
 some_bool = True
 while (some_bool):
     print('            ')
+    print("COMPUTER SHIP")
     #user input to set gridSize
-    gridSize = input("How big do you want it to be?(5 = 5x5)(Must be greater than 2)")
-    print("        ")
+    gridSize = input("How big do you want it to be?(5 = 5x5)(Must be greater than 2)\n")
     #user input to set the mode whether the ships are selected or random
-    userChoice = input("Do you want it to be Selected or Random? (1=Selected, 2=Random)")
-    print(" ")
-    get_user_ship_placement = input("Do you want the ships to be horizontal or vertical")
+    userChoice = input("Do you want it to be Selected or Random? (1=Selected, 2=Random)\n")
+    get_user_ship_placement = input("Do you want the ships to be horizontal or vertical\n")
     
     try:
         #evaluates the value of userRow and userCol
@@ -39,11 +38,11 @@ def userChoices():
         for i in range(1):
             global compName
             #generates 2 random numbers
-            angle = input("Do you want your ship horizontal or vertical for the computer ships?")
+            angle = input("Do you want your ship horizontal or vertical for the computer ships?\n")
             randomRow1 = random.randrange(1,gridSize)
             randomCol1 = random.randrange(1,gridSize)
             print("  ")
-            compName = input("What is the name of the computer ship {}?: ".format(i+1))
+            compName = input("What is the name of the computer ship {}?\n: ".format(i+1))
             #append the single ship list to the list of ships
             if angle == "horizontal":
                 try:
@@ -68,16 +67,13 @@ def userChoices():
             while (some_bool):
                 print("             ")
                 print("YOUR SHIP")
-                print(" ")
                 global userName
-                angle = input("Do you want your ship horizontal or vertical for the computer ships?")
-                print("  ")
+                angle = input("Do you want your ship horizontal or vertical for the computer ships?\n")
                 #used to set the computer's ship row
-                userRow = input("What row would you like for the computer's's ship {} :".format(i+1))
-                print("       ")
+                userRow = input("What row would you like for the computer's's ship {} :\n".format(i+1))
                 #used to set the computer's ship column
-                userCol = input("What column would you like for the computer's ship {} :".format(i+1))
-                compName = input("What is the name of the computer ship {}?: ".format(i+1))
+                userCol = input("What column would you like for the computer's ship {} :\n".format(i+1))
+                compName = input("What is the name of the computer ship {}?:\n ".format(i+1))
                 
                 try:
                     #evaluates the value of userRow and userCol
@@ -120,14 +116,16 @@ def userChoices():
             some_bool = True
             while (some_bool):
                 print("             ")
-                
-                angle = input("Do you want your ship horizontal or vertical?")
+                print("YOUR SHIP\n")
+                angle = input("Do you want your ship horizontal or vertical?\n")
+                print("  ")
                 #used to set the user's ship row
-                userRow = input("What row would you like for your ship {} :".format(i+1))
-                print("       ")
+                userRow = input("What row would you like for your ship {} :\n".format(i+1))
+               
                 #used to set the user's ship column
-                userCol = input("What column would you like for your ship {} :".format(i+1))
-                userName = input("What name would you like for your ship {}?: ".format(i+1))
+                userCol = input("What column would you like for your ship {} :\n".format(i+1))
+                
+                userName = input("What name would you like for your ship {}?\n: ".format(i+1))
                 
                 try:
                     #evaluates the value of userRow and userCol
@@ -167,6 +165,7 @@ def userChoices():
         
 # function used to print the user's board
 def printBoardUser():
+   
     for row in guessBoard:
         for cell in row:
             if cell == 0 or cell == '-' :
@@ -177,6 +176,7 @@ def printBoardUser():
 
 # function used to print the computer's board
 def printBoardCpu():
+    
     for row in compGuessBoard:
         for cell in row:
             if cell == 0 or cell == '-':
