@@ -1,5 +1,10 @@
 import random
 
+class ship:
+    def __init__(self, name, list):
+        self.name = name
+        self.list = list
+
 #input verificiation 
 some_bool = True
 while (some_bool):
@@ -31,6 +36,7 @@ while (some_bool):
     #creates board
     guessBoard = [["0"] * gridSize for i in range(gridSize)]
     compGuessBoard = [["0"] * gridSize for i in range(gridSize)]
+    
 
 def userChoices():
     #returns the random location in the grid 
@@ -185,6 +191,15 @@ def printBoardCpu():
                 print(cell, end=" ")
         print()
 
+
+def createShips(list):
+    for i in guessBoard:
+        if guessBoard[] == "s":
+            patrolShip = ship("Patrol Boat", list)
+    placeShip(patrolShip)
+
+def placeShip():
+    pass
 #function used for the computers side of playing
 def computerPlay():
     print("--------------------------------------Computer Turn-----------------------------------------------------")
